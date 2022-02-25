@@ -1,7 +1,6 @@
 from flask import Flask, redirect, render_template, request, flash, url_for, session
 import numpy as np
 import pickle
-
 from settings.settings import DEV
 
 app = Flask(__name__)
@@ -13,9 +12,6 @@ with open('model.pkl', 'rb') as file:
 
 @app.route("/", methods=["GET","POST"])
 def index():
-
-
-    # messages = request.args['messages']
 
     if request.method == "POST":
         institution =request.form['institution']
@@ -37,12 +33,20 @@ def index():
 
         print("prediction", prediction)
         print("prediction type", type(prediction))
-        # flash("sudf", 'success')
+        flash("Successfully Returned Zero Trust Level Prediction", 'success')
 
-        # return redirect(url_for('index'))
-
-
+        return redirect(url_for("results", res=prediction))
     return render_template("index.html")
 
+@app.route("/results/<res>", methods=["GET"])
+def results(res):
+    # print("now", res[2:-2])
+    r = [i.replace("\n", "") for i in list(res[2:-2].split(" ")) if i != ""]
+    s = [f'{float(j):.5f}' for j in r]
+    t = [(str(round((float(i)*100), 2)) + "%") for i in s]
+    print("res 1",t)
+
+    return render_template("results.html", results=t)
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
