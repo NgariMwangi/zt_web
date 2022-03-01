@@ -101,9 +101,15 @@
 {% block content %}
 
 <div class="row">
+
     <div class="col mt-5">
+
+        <a href="/" class="btn btn-info" style="text-align: center; margin-top: 2em;">Take Survey Again</a>
+
         <div class="card mt-5">
+            <h1 style="text-align: center;margin-top: 1em; margin-bottom: 1em;"> Model Prediction Results </h1>
             <div class="card-body">
+
                 <div style="padding: 0 10px;">
                     <!-- alert -->
                     {% include '/includes/alert.html' %}
@@ -111,33 +117,59 @@
 
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      Level 1 (None)
-                      <span class="badge bg-primary rounded-pill">   {{ results[0] }}</span>
+                        Stage 1 (None)
+                        <span class="badge bg-primary rounded-pill"> {{ results[0] }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      Level 2 (Slightly)
-                      <span class="badge bg-primary rounded-pill"> {{ results[1] }}</span>
+                        Stage 2 (Semi Partial)
+                        <span class="badge bg-primary rounded-pill"> {{ results[1] }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      Level 3 (Partially)
-                      <span class="badge bg-primary rounded-pill">{{ results[2] }}</span>
+                        Stage 3 (Partial)
+                        <span class="badge bg-primary rounded-pill">{{ results[2] }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Level 4 (Semi Partially)
+                        Stage 4 (Almost Full)
                         <span class="badge bg-primary rounded-pill"> {{ results[3] }}</span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Level 5 (Full Adoption)
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Stage 5 (Full Adoption)
                         <span class="badge bg-primary rounded-pill">{{ results[4] }}</span>
-                      </li>
-                  </ul>
-
-                  <a href="/" class="btn btn-info" style="text-align: center">Take Survey Again</a>
-
-
-        
+                    </li>
+                </ul>
             </div>
         </div>
+
+        <h1 style="text-align: center;margin-top: 1em; margin-bottom: 1em;"> Recommendations </h1>
+
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+
+            <!-- {{ recom }} -->
+
+            {% for k,v in recom.items() %}
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne">
+                        {{ k }}
+                    </button>
+                </h2>
+
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                    aria-labelledby="panelsStayOpen-headingOne">
+                    <div class="accordion-body">
+                        {{ v }}
+
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+
     </div>
 </div>
 
